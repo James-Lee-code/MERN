@@ -10,13 +10,10 @@ require("./config/passport")(passport);
 const cors = require("cors");
 
 mongoose
-  .connect("mongodb://localhost:27017/mernDB")
-  .then(() => {
-    console.log("連結到mongodb...");
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("連結到mongodb..."))
+  .catch((e) => console.log(e));
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
