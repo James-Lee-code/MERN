@@ -4,7 +4,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 class AuthService {
   login(email, password) {
-    return axios.post(`${API_URL}/login`, { email, password });
+    return axios.post(`${API_URL}/user/login`, { email, password });
   }
 
   logout() {
@@ -12,7 +12,7 @@ class AuthService {
   }
 
   register(username, email, password, role) {
-    return axios.post(`${API_URL}/register`, {
+    return axios.post(`${API_URL}/user/register`, {
       username,
       email,
       password,
