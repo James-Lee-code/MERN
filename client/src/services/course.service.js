@@ -1,14 +1,9 @@
 import axios from "axios";
-const API_URL = "http://localhost:8080/api/courses";
+const API_URL = `${process.env.REACT_APP_API_URL}/courses`;
 
 class CourseService {
   post(title, description, price) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
+    const token = JSON.parse(localStorage.getItem("user"))?.token || "";
     return axios.post(
       API_URL,
       { title, description, price },
@@ -20,32 +15,18 @@ class CourseService {
     );
   }
 
-  // 使用學生id，找到學生註冊的課程
   getEnrolledCourses(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
-
-    return axios.get(API_URL + "/student/" + _id, {
+    const token = JSON.parse(localStorage.getItem("user"))?.token || "";
+    return axios.get(`${API_URL}/student/${_id}`, {
       headers: {
         Authorization: token,
       },
     });
   }
 
-  // 使用instructor id，來找到講師擁有的課程
   get(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
-
-    return axios.get(API_URL + "/instructor/" + _id, {
+    const token = JSON.parse(localStorage.getItem("user"))?.token || "";
+    return axios.get(`${API_URL}/instructor/${_id}`, {
       headers: {
         Authorization: token,
       },
@@ -53,14 +34,8 @@ class CourseService {
   }
 
   getCourseByName(name) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
-
-    return axios.get(API_URL + "/findByName/" + name, {
+    const token = JSON.parse(localStorage.getItem("user"))?.token || "";
+    return axios.get(`${API_URL}/findByName/${name}`, {
       headers: {
         Authorization: token,
       },
@@ -68,15 +43,9 @@ class CourseService {
   }
 
   enroll(_id) {
-    let token;
-    if (localStorage.getItem("user")) {
-      token = JSON.parse(localStorage.getItem("user")).token;
-    } else {
-      token = "";
-    }
-
+    const token = JSON.parse(localStorage.getItem("user"))?.token || "";
     return axios.post(
-      API_URL + "/enroll/" + _id,
+      `${API_URL}/enroll/${_id}`,
       {},
       {
         headers: {
